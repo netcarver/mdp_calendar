@@ -2,7 +2,7 @@ h1. mdp_calendar.git
 
 h2. Description
 
-p. This is a plugin for "Textpattern":http://textpattern.com based on the original by "Marshall":http://www.outoverthevoid.com/
+p. This is a plugin for "Textpattern":http://textpattern.com based on the original by "Marshall Potter":http://www.outoverthevoid.com/
 
 h2. Licence
 
