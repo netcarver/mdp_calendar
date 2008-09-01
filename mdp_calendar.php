@@ -262,14 +262,14 @@ class MDP_Calendar extends Calendar {
 
 		$id = ($this->tableID) ? a.'calid='.$this->tableID : ''; // Allow specific calendar navigation, in case we have more than one per page
 		if($permlink_mode != 'messy') {
-			return "/?m=$month".a."y=$year".$id;
+			return '/?m='.$month.a.'y='.$year.$id;
 		} else { // for messy URL's we need to build the entire request string first, then tack on the rest
 			$out = makeOut('id','s','c','q','pg','p','month');
-			$r = '?';
+			$r = '/?';
 			foreach($out as $key => $val ) {
 				$r .= ($val) ? "$key=$val".a : '';
 			}
-			return $r."m=$month".a."y=$year".$id;
+			return $r.'m='.$month.a.'y='.$year.$id;
 		}
 	}
 }
