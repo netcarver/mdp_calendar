@@ -425,6 +425,11 @@ class Calendar {
 			// Remove the tz_offset because safe_strftime adds it, but we get locale support
 			$names[] = ucfirst(safe_strftime($this->dayNameFmt, 86400*$i - tz_offset() ));
 		}
+		# Here's Adi's patch to fix the off-by-one date...
+		$names = array();
+		$sunday = strtotime("1970-01-04");
+		for($i=0; $i<7; $i++) $names[] = ucfirst(safe_strftime($this->dayNameFmt,$sunday + 86400 * $i));
+		# End of Adi's patch.
 
 		$c[] = '<tr>';
 
