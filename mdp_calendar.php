@@ -41,11 +41,12 @@ function mdp_calendar_small($atts)
 			'static' => '',
 			'class' => '',
 			'id' => '',
+			'summary' => '',
 			'month' => '',
 			'year' => '',
 			'dayformat' => 'ABBR',
 			'firstday' => 0,
-			'spandays' => 0
+			'spandays' => 0,
 			),$atts);
 
 		if( $atts['displayfuture'] ) { $atts['time'] = "any"; } // backwards compatability
@@ -61,6 +62,7 @@ function mdp_calendar_small($atts)
 		}
 		$calendar->setTableID($atts['id']);
 		$calendar->setTableClass($atts['class']);
+		$calendar->setTableSummary($atts['summary']);
 		$calendar->setDayNameFormat($atts['dayformat']);
 		$calendar->setFirstDayOfWeek($atts['firstday']);
 		return $calendar->display($atts['static'],$future);
@@ -219,13 +221,12 @@ class MDP_Calendar extends Calendar {
 
 	function display($static=false, $future=false) {
 		$id = ($this->tableID) ? ' id="'.$this->tableID.'"' : '';
+		$summary = ($this->tableSummary) ? ' summary="'.$this->tableSummary.'"' : '';
 		$c[] = $this->dspHeader($static, $future);
 		$c[] = $this->dspDayNames();
 		$c[] = $this->dspDayCells();
-
-		return doTag(join('',$c),'table',$this->tableClass,$id);
+		return doTag(join('',$c),'table',$this->tableClass,$summary.$id);
 	}
-
 
 	function dspHeader($static, $future) {
 		$nav_back_link = $this->navigation($this->year, $this->month, '-');
@@ -358,6 +359,7 @@ class Calendar {
 		$this->setTableClass('');
 	}
 
+	function setTableSummary($summary) { $this->tableSummary = $summary; }
 	function getStartTime() { return $this->startTime; }
 	function getEndTime() { return $this->endTime; }
 	function getYear() { return $this->year; }
@@ -390,19 +392,20 @@ class Calendar {
 			$this->dayNameFmt = $f;
 		}
 	}
+
 	/**
 	* Returns markup for displaying the calendar.
 	* @return
 	* @public
-*/
+	*/
 	function display ( )
 	{
 		$id = ($this->tableID) ? ' id="'.$this->tableID.'"' : '';
-		$c[] = '<table'.$id.'>';
+		$summary = ($this->tableSummary) ? ' summary="'.$this->tableSummary.'"' : '';
+		$c[] = '<table'.$id.$summary.'>';
 		$c[] = $this->dspDayNames();
 		$c[] = $this->dspDayCells();
 		$c[] = '</table>';
-
 		return join('',$c);
 	}
 	// ==== end display ================================================
